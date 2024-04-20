@@ -1,5 +1,9 @@
 package com.fackstore.CallFackStore.controller;
 
+
+
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,12 @@ public class ProductController {
 	public Product getProductById(@PathVariable("id") Long id) {
 		
 		return productService.getProductById(id);
+	}
+	
+	@GetMapping()
+	public List<Product> getAllProduct(){
+		
+		return productService.getAllProduct();
 	}
 	
 }

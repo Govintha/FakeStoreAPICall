@@ -1,5 +1,8 @@
 package com.fackstore.CallFackStore.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,6 +29,23 @@ public class FackStroreImple implements ProductService{
 	}
 
 
+
+	@Override
+	public List<Product> getAllProduct() {
+		  
+		// Not use List because if we use List<FakeStoreProduct> at runtime only List will be there so there mismatch will happen 
+		// here array not generics  
+		 FakeStoreProduct[] getFakeStoreProducts=restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProduct[].class);
+		 
+		 List<Product> listOfProduct=new ArrayList<>();
+		 
+		 for(FakeStoreProduct fakeStoreProduct:getFakeStoreProducts) {
+			 listOfProduct.add(convertDTOToProduct(fakeStoreProduct));
+		 }
+		return listOfProduct;
+	}
+	
+	
 	private Product convertDTOToProduct(FakeStoreProduct fakeStoreProduct) {
 		
 		 Product product=new Product();
@@ -40,7 +60,6 @@ public class FackStroreImple implements ProductService{
 		 
 		return product;
 	}
-	
 	
 
 }
